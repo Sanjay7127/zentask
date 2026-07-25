@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-class ToDoTile extends StatelessWidget {
+class TaskTile extends StatelessWidget {
   final String taskname;
   final bool taskcomplete;
   Function(bool?)? onChanged;
   Function(BuildContext)? deletefunction;
 
-  ToDoTile(
+  TaskTile(
       {super.key,
       required this.taskname,
       required this.taskcomplete,
@@ -18,6 +17,7 @@ class ToDoTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Padding(
       padding: const EdgeInsets.only(top: 20, right: 10, left: 10),
       child: Slidable(
@@ -28,7 +28,7 @@ class ToDoTile extends StatelessWidget {
               spacing: -10,
               borderRadius: BorderRadius.circular(25),
               onPressed: deletefunction,
-              backgroundColor: const Color.fromARGB(255, 251, 128, 109),
+              backgroundColor: colorScheme.error,
               icon: Icons.delete,
             )
           ],
@@ -41,7 +41,7 @@ class ToDoTile extends StatelessWidget {
               spacing: -10,
               borderRadius: BorderRadius.circular(25),
               onPressed: deletefunction,
-              backgroundColor: const Color.fromARGB(255, 251, 128, 109),
+              backgroundColor: colorScheme.error,
               icon: Icons.delete,
             )
           ],
@@ -56,7 +56,7 @@ class ToDoTile extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.only(top: 10, left: 20, right: 20, bottom: 10),
             decoration: BoxDecoration(
-                color: Color.fromARGB(255, 255, 255, 255),
+                color: colorScheme.surfaceContainerHighest,
                 borderRadius: BorderRadius.circular(25)),
             child: Row(
               children: [
@@ -65,16 +65,16 @@ class ToDoTile extends StatelessWidget {
                   child: Checkbox(
                     value: taskcomplete,
                     onChanged: onChanged,
-                    activeColor: Color.fromARGB(255, 20, 20, 20),
+                    activeColor: colorScheme.primary,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    checkColor: Color.fromARGB(255, 255, 255, 255),
+                    checkColor: colorScheme.onPrimary,
                     visualDensity: VisualDensity(vertical: 3, horizontal: 3),
                   ),
                 ),
                 Text(taskname,
-                    style: GoogleFonts.poppins(
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         fontSize: 15,
                         decoration: taskcomplete
                             ? TextDecoration.lineThrough

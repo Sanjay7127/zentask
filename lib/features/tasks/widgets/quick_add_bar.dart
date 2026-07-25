@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:zentask/button.dart';
+import 'package:zentask/widgets/app_button.dart';
 
-class Create extends StatelessWidget {
+class QuickAddBar extends StatelessWidget {
   final controller;
   VoidCallback onSave;
-  Create({super.key, required this.controller, required this.onSave});
+  QuickAddBar({super.key, required this.controller, required this.onSave});
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final bodyStyle = Theme.of(context).textTheme.bodyMedium?.copyWith(
+          fontSize: 15,
+        );
     return Padding(
       padding: const EdgeInsets.only(top: 0, left: 0, right: 0),
       child: Container(
         padding: EdgeInsets.only(top: 30, left: 30, right: 30, bottom: 30),
         decoration: BoxDecoration(
-          color: Color.fromARGB(255, 255, 255, 255),
+          color: colorScheme.surface,
           borderRadius: BorderRadius.circular(0),
         ),
         child: Row(
@@ -24,32 +27,28 @@ class Create extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 12, left: 12),
                 child: TextField(
                   controller: controller,
-                  style: GoogleFonts.poppins(
-                    fontSize: 15,
-                  ),
+                  style: bodyStyle,
                   decoration: InputDecoration(
                     filled: true, // Enables the fill color
-                    fillColor: Color.fromARGB(255, 250, 250, 250),
+                    fillColor: colorScheme.surfaceContainerHigh,
                     enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Color.fromARGB(255, 0, 0, 0)),
+                      borderSide: BorderSide(color: colorScheme.outline),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Color.fromARGB(255, 0, 0, 0)),
+                      borderSide: BorderSide(color: colorScheme.primary),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     hintText: "What To Do...",
-                    hintStyle: GoogleFonts.poppins(
-                      fontSize: 15,
+                    hintStyle: bodyStyle?.copyWith(
+                      color: colorScheme.onSurfaceVariant,
                     ),
                   ),
                 ),
               ),
             ),
             // SizedBox(width: 2),
-            mybutton(
+            AppButton(
               text: "+",
               onPressed: onSave,
             ),

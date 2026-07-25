@@ -1,24 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/adapters.dart';
-import '/home.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:zentask/core/app.dart';
+import 'package:zentask/repositories/task_repository.dart';
+import 'package:zentask/services/hive_service.dart';
 
 void main() async {
-  await Hive.initFlutter();
+  await HiveService.init();
 
-  var box = await Hive.openBox('mybox');
+  // Best-effort, non-fatal: the legacy task box is untouched either way,
+  // and today's UI only reads that legacy box. A failed migration can
+  // simply retry on the next launch.
+  try {
+    await TaskRepository().migrateLegacyTasksIfNeeded();
+  } catch (_) {}
 
   runApp(const MainApp());
-}
-
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomePage(),
-    );
-  }
 }

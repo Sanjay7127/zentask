@@ -1,26 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-class mybutton extends StatelessWidget {
+class AppButton extends StatelessWidget {
   final String text;
   VoidCallback onPressed;
-  mybutton({super.key, required this.text, required this.onPressed});
+  AppButton({super.key, required this.text, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return MaterialButton(
       elevation: 0,
       minWidth: 60,
       onPressed: onPressed,
-      color: Color.fromARGB(255, 1, 209, 175),
+      color: colorScheme.primary,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
       padding: EdgeInsets.only(top: 8, bottom: 8),
       child: Text(
         text,
-        style: GoogleFonts.poppins(
-            fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
+        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+              color: colorScheme.onPrimary,
+            ),
       ),
     );
   }
