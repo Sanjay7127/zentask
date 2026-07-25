@@ -1,11 +1,11 @@
 {
-    "name": "fulltodoapp",
-    "short_name": "fulltodoapp",
+    "name": "ZenTask",
+    "short_name": "ZenTask",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "ZenTask — an AI-powered productivity and project management app.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

@@ -1,3 +1,3 @@
-# fulltodoapp
+# ZenTask
 
-A new Flutter project.
+An AI-powered productivity and project management app, built with Flutter.

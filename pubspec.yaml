@@ -1,5 +1,5 @@
-name: fulltodoapp
-description: "A new Flutter project."
+name: zentask
+description: "ZenTask — an AI-powered productivity and project management app."
 publish_to: 'none'
 version: 0.1.0
 

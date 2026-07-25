@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:fulltodoapp/database.dart';
-import 'package:fulltodoapp/todotile.dart';
+import 'package:zentask/database.dart';
+import 'package:zentask/todotile.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:fulltodoapp/createtask.dart';
+import 'package:zentask/createtask.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
         toolbarHeight: 80,
         backgroundColor: Color.fromARGB(255, 255, 255, 255),
         title: Center(
-          child: Text('\nTo Do',
+          child: Text('\nZenTask',
               style: GoogleFonts.poppins(
                   fontSize: 35,
                   fontWeight: FontWeight.bold,
