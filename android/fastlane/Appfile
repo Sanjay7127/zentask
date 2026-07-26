@@ -1,12 +1,10 @@
-# Fastlane Appfile (Android) — Phase 12 skeleton, not yet wired to a
-# real Play Console listing.
+# Fastlane Appfile (Android) — skeleton, not yet wired to a real Play
+# Console listing.
 #
-# package_name should match android/app/build.gradle's applicationId
-# (currently the placeholder "com.example.zentask" — see
-# DEVELOPER_GUIDE.md's "Before your first store submission" section).
+# package_name matches android/app/build.gradle's applicationId.
 # json_key_file is a Play Console service-account key; keep it out of
 # version control (see android/fastlane/.gitignore) and supply it via
 # CI secrets, never committed.
 
-package_name("com.example.zentask")
+package_name("com.github.sanjay7127.zentask")
 # json_key_file("path/to/play-console-service-account.json")

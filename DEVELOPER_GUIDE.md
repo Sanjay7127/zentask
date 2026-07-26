@@ -66,8 +66,8 @@ Android has two flavors, defined in `android/app/build.gradle`:
 
 | Flavor | Application ID | Label | Purpose |
 | --- | --- | --- | --- |
-| `dev` | `com.example.zentask.dev` | ZenTask Dev | Installs side-by-side with a release build on the same device |
-| `prod` | `com.example.zentask` | ZenTask | The store-submission flavor |
+| `dev` | `com.github.sanjay7127.zentask.dev` | ZenTask Dev | Installs side-by-side with a release build on the same device |
+| `prod` | `com.github.sanjay7127.zentask` | ZenTask | The store-submission flavor |
 
 > **This means `flutter run`/`flutter build apk` now require `--flavor
 > dev` or `--flavor prod` on Android** — running either command with no
@@ -227,16 +227,12 @@ exactly what's missing.
 
 ### Before your first store submission
 
-A few placeholders exist that were never meant to reach a real store
-listing — update these first (also tracked in
+Application id, bundle identifier, and copyright metadata have already
+been updated from Flutter's placeholder defaults to
+`com.github.sanjay7127.zentask` / Prakash Sanjay across Android, iOS,
+macOS, Windows, and Linux. What's still outstanding (also tracked in
 [STORE_READINESS.md](STORE_READINESS.md)):
 
-- **Application id**: `android/app/build.gradle`'s `applicationId =
-  "com.example.zentask"` — Flutter's own default, never changed to a
-  real reversed-domain id.
-- **iOS bundle identifier**: same situation, in the Xcode project
-  (`ios/Runner.xcodeproj`) — check via Xcode's Signing & Capabilities
-  tab.
 - **Release signing**: `android/app/build.gradle`'s release build type
   currently signs with the debug keystore (`signingConfig =
   signingConfigs.debug`) specifically so `flutter build apk --release`

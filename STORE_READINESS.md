@@ -34,6 +34,18 @@ missing both) — anything that genuinely needs one is marked
       data collection, and the required-reason API categories this
       app's dependencies are known to touch (file timestamps, user
       defaults, disk space).
+- [x] **Application id / bundle identifier** updated from Flutter's
+      `com.example.zentask` placeholder to `com.github.sanjay7127.zentask`
+      across Android (`build.gradle`), iOS/macOS (`project.pbxproj`,
+      `AppInfo.xcconfig`), and Linux (`CMakeLists.txt`).
+- [x] **Copyright metadata** updated from the placeholder `com.example`
+      to Prakash Sanjay in `LICENSE`, macOS `AppInfo.xcconfig`
+      (`PRODUCT_COPYRIGHT`), and Windows `Runner.rc` (`CompanyName`,
+      `LegalCopyright`).
+- [x] **iOS display name** (`CFBundleDisplayName`/`CFBundleName` in
+      `ios/Runner/Info.plist`) fixed from the leftover pre-rebrand
+      "Fulltodoapp" / "To Do" to "ZenTask" — this is what would have
+      shown under the app icon on a real iPhone home screen.
 
 ## Needs action before submission (can't be done from this sandbox)
 
@@ -77,6 +89,6 @@ missing both) — anything that genuinely needs one is marked
 - [ ] **Content/age rating questionnaire** (both stores) — nothing in
       this app suggests anything other than the lowest rating tier,
       but each store requires answering its own questionnaire directly.
-- [ ] **Application id / bundle identifier / release signing** — see
-      `DEVELOPER_GUIDE.md`'s "Before your first store submission"
-      section; these are still Flutter's defaults / debug-signed.
+- [ ] **Release signing** — see `DEVELOPER_GUIDE.md`'s "Before your
+      first store submission" section; `android/app/build.gradle`'s
+      release build type still signs with the debug keystore.
