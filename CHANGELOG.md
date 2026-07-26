@@ -76,7 +76,7 @@ core services` commit) and are summarized under Foundation below.
 - Generated app icons and native splash screens; an iOS Privacy
   Manifest; Play Store / App Store listing copy.
 - Full documentation set: `ARCHITECTURE.md`, `DEVELOPER_GUIDE.md`,
-  `CONTRIBUTING.md`, `MIGRATION_GUIDE.md`, `SECURITY.md`.
+  `CONTRIBUTING.md`, `SECURITY.md`.
 
 ### Known limitations
 

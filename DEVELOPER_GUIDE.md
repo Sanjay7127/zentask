@@ -57,8 +57,7 @@ skipping `--dart-define-from-file` entirely) is always safe — every
 cloud-backed service (`AuthService`, sync, the AI planner) detects missing
 credentials via `CloudConfig.has*Credentials` and falls back to a
 local-only implementation. See `lib/config/cloud_config.dart` for the
-exact fields, and `lib/config/app_environment.dart` for the `ENVIRONMENT`
-flag (`dev`/`staging`/`prod`, defaults to `dev`).
+exact fields.
 
 ## Build flavors
 
@@ -75,7 +74,7 @@ Android has two flavors, defined in `android/app/build.gradle`:
 > behavior, not a bug; update any local scripts/muscle memory
 > accordingly.
 
-Pair the Android flavor with the matching `ENVIRONMENT` dart-define:
+Pair the Android flavor with your cloud config:
 
 ```bash
 flutter run --flavor dev --dart-define-from-file=config/cloud_config.json
@@ -230,8 +229,7 @@ exactly what's missing.
 Application id, bundle identifier, and copyright metadata have already
 been updated from Flutter's placeholder defaults to
 `com.github.sanjay7127.zentask` / Prakash Sanjay across Android, iOS,
-macOS, Windows, and Linux. What's still outstanding (also tracked in
-[STORE_READINESS.md](STORE_READINESS.md)):
+macOS, Windows, and Linux. What's still outstanding:
 
 - **Release signing**: `android/app/build.gradle`'s release build type
   currently signs with the debug keystore (`signingConfig =

@@ -142,9 +142,16 @@ completions, stored as `'<habitId>:<yyyy-MM-dd>' -> true`).
 (e.g. `Task.isPinned`, `Task.labelIds`) gets a default value and is
 threaded through the model's full round-trip: `toMap`/`fromMap`/
 `copyWith`, and critically, every *other* method that constructs a new
-instance of that model directly rather than via `copyWith` — see
-[MIGRATION_GUIDE.md](MIGRATION_GUIDE.md) for the specific bug class this
-causes if missed, and how to check for it.
+instance of that model directly rather than via `copyWith`. This is a real
+bug class, not a hypothetical one: `Task.unassignFromProject()`,
+`withoutDueDate()`, and `withoutReminder()` all build a new `Task(...)`
+directly (they need to force a field to `null`, which `copyWith`'s
+null-means-"leave unchanged" convention can't express), so a newly-added
+field silently gets reset to its default every time one of those three
+runs — unless it's explicitly added there too. Grep the model's own class
+name followed by `(` to find every direct-construction site before
+considering a new field "done," and add a round-trip test asserting on the
+new field specifically.
 
 ### Supabase (optional cloud)
 
@@ -227,10 +234,12 @@ Covered in depth by [SECURITY.md](SECURITY.md); the architectural summary:
   `flutter_secure_storage`, never in Hive itself. `HiveService.init()`
   opens every box encrypted whenever a key already exists — a fresh
   install choosing to encrypt from day one needs nothing else. Migrating
-  an *existing* unencrypted install is a separate, explicit,
-  restart-required operation — see
-  [MIGRATION_GUIDE.md](MIGRATION_GUIDE.md) for the full procedure and why
-  it can't be done as a seamless hot-swap.
+  an *existing* unencrypted install (`HiveEncryptionService.enableEncryption`)
+  reads every box's contents into memory, deletes the plaintext box files,
+  generates a key, reopens every box encrypted, and writes the contents
+  back — then requires an app restart, since every repository/controller
+  already holding a `Box` reference from before the migration is now
+  pointing at a closed box, and this deliberately isn't hot-swapped.
 - **Privacy controls**: "sign out everywhere" and "delete all my data"
   (`DataPrivacyService`, clears every box named in
   `HiveService.allBoxNames`).
@@ -308,7 +317,7 @@ tested path.
   bypassing `copyWith`'s null-means-"leave unchanged" convention. This is
   also exactly why those three methods are the recurring place new `Task`
   fields get silently dropped if a new field is added without also
-  touching them — see `MIGRATION_GUIDE.md`.
+  touching them — see [Data layer § Hive](#hive-local-storage) above.
 - **Foundation phase** — Legacy tasks (`mybox`, `title`+`isDone` only) and
   rich tasks (`task_records`, everything else) are different Hive boxes
   entirely, migrated lazily on first launch
@@ -317,7 +326,6 @@ tested path.
 
 ## Known technical debt
 
-See [CHANGELOG.md](CHANGELOG.md)'s "Known limitations" section and
-[STORE_READINESS.md](STORE_READINESS.md) for the current, maintained list
-— kept there rather than duplicated here so it doesn't go stale in two
-places.
+See [CHANGELOG.md](CHANGELOG.md)'s "Known limitations" section for the
+current, maintained list — kept there rather than duplicated here so it
+doesn't go stale in two places.

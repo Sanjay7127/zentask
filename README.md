@@ -1,12 +1,3 @@
-<!--
-  Maintainer note (remove this comment once no longer needed):
-  Badges/links now point at the real repo (Sanjay7127/zentask). Still to
-  update: the LinkedIn/Portfolio links in the Author section, and the
-  SECURITY.md / CODE_OF_CONDUCT.md contact emails, all of which are still
-  placeholders. Nothing else in this file is fabricated — every feature,
-  dependency, and stat referenced below reflects the actual codebase.
--->
-
 <div align="center">
 
 <img src="assests/ToDo.png" alt="ZenTask logo" width="120" height="120" />
@@ -33,7 +24,6 @@ Local-first by default. Cloud sync, AI planning, and biometric-locked encryption
 <br />
 
 [**📖 Documentation**](#-documentation) &nbsp;·&nbsp;
-[**🎬 Demo**](#-preview) &nbsp;·&nbsp;
 [**🐛 Report Bug**](https://github.com/Sanjay7127/zentask/issues/new?labels=bug) &nbsp;·&nbsp;
 [**✨ Request Feature**](https://github.com/Sanjay7127/zentask/issues/new?labels=enhancement)
 
@@ -43,8 +33,6 @@ Local-first by default. Cloud sync, AI planning, and biometric-locked encryption
 
 ## 📋 Table of Contents
 
-- [Preview](#-preview)
-- [Screenshots](#-screenshots)
 - [Features](#-features)
 - [Architecture](#-architecture)
 - [Tech Stack](#-tech-stack)
@@ -57,53 +45,6 @@ Local-first by default. Cloud sync, AI planning, and biometric-locked encryption
 - [License](#-license)
 - [Author](#-author)
 - [Support](#-support)
-
-<br />
-
-## 🎬 Preview
-
-<div align="center">
-
-> **TODO:** `assets/readme/demo.gif` hasn't been recorded yet — see
-> [`assets/readme/README.md`](assets/readme/README.md) for exactly what to
-> capture and how. The line below will render automatically once it exists.
-
-![ZenTask demo](assets/readme/demo.gif)
-
-</div>
-
-<br />
-
-## 📸 Screenshots
-
-<div align="center">
-
-> **TODO:** screenshots below are placeholders — see
-> [`assets/readme/README.md`](assets/readme/README.md) for the full capture
-> checklist. Each image tag already points at its final filename.
-
-<table>
-  <tr>
-    <td align="center" width="25%"><img src="assets/readme/home.png" alt="Tasks" /><br /><sub><b>Tasks</b></sub></td>
-    <td align="center" width="25%"><img src="assets/readme/projects.png" alt="Projects" /><br /><sub><b>Projects</b></sub></td>
-    <td align="center" width="25%"><img src="assets/readme/calendar.png" alt="Calendar" /><br /><sub><b>Calendar</b></sub></td>
-    <td align="center" width="25%"><img src="assets/readme/analytics.png" alt="Analytics" /><br /><sub><b>Analytics</b></sub></td>
-  </tr>
-  <tr>
-    <td align="center" width="25%"><img src="assets/readme/focus.png" alt="Focus Mode" /><br /><sub><b>Focus Mode</b></sub></td>
-    <td align="center" width="25%"><img src="assets/readme/habits.png" alt="Habits" /><br /><sub><b>Habits</b></sub></td>
-    <td align="center" width="25%"><img src="assets/readme/goals.png" alt="Goals" /><br /><sub><b>Goals</b></sub></td>
-    <td align="center" width="25%"><img src="assets/readme/settings.png" alt="Settings" /><br /><sub><b>Settings</b></sub></td>
-  </tr>
-  <tr>
-    <td align="center" width="25%"><img src="assets/readme/security.png" alt="Security & Privacy" /><br /><sub><b>Security & Privacy</b></sub></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-</table>
-
-</div>
 
 <br />
 
@@ -280,9 +221,7 @@ flutter test      # 300+ tests across models, repositories, providers, services,
 | **[DEVELOPER_GUIDE.md](DEVELOPER_GUIDE.md)** | Environment setup, build flavors, testing gotchas, CI/CD, releases |
 | **[CONTRIBUTING.md](CONTRIBUTING.md)** | Project setup, coding standards, branch/commit naming, PR process |
 | **[CHANGELOG.md](CHANGELOG.md)** | Version history in Keep a Changelog format |
-| **[MIGRATION_GUIDE.md](MIGRATION_GUIDE.md)** | Safely evolving the local data model; the encryption migration in detail |
 | **[SECURITY.md](SECURITY.md)** | Supported versions, reporting a vulnerability, disclosure policy |
-| **[STORE_READINESS.md](STORE_READINESS.md)** | What's done vs. outstanding before an app-store submission |
 
 <br />
 
@@ -338,11 +277,12 @@ full text.
 
 <div align="center">
 
-**Your Name**
+**PRAKASH SANJAY PALANI**
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?logo=linkedin&logoColor=white)](https://linkedin.com/in/your-profile)
 [![GitHub](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white)](https://github.com/Sanjay7127)
-[![Portfolio](https://img.shields.io/badge/Portfolio-000000?logo=googlechrome&logoColor=white)](https://your-portfolio.example.com)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/prakash-sanjay-palani/)
+
+Built and maintained by Prakash Sanjay Palani.
 
 </div>
 

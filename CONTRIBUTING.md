@@ -49,7 +49,8 @@ gotchas.
   `toMap`/`fromMap`/`copyWith` *and* every other method on that model that
   constructs a new instance directly instead of via `copyWith` (check for
   these — `Task.unassignFromProject`, `withoutDueDate`, `withoutReminder`
-  are the recurring example; see **[MIGRATION_GUIDE.md](MIGRATION_GUIDE.md)**).
+  are the recurring example; see
+  **[ARCHITECTURE.md § Hive](ARCHITECTURE.md#hive-local-storage)**).
   Never remove or repurpose an existing field — existing installs' Hive
   data still has it.
 - **Constructor injection, defaulting to the real thing.** Every

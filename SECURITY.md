@@ -20,13 +20,9 @@ window.
 
 **Please do not open a public GitHub issue for security vulnerabilities.**
 
-Instead, report it privately using one of the following:
-
-- **GitHub Private Vulnerability Reporting** (preferred): open the
-  [Security tab](../../security/advisories/new) on this repository and
-  submit a draft security advisory.
-- **Email**: `security@example.com` — replace with a real, monitored address
-  before publishing this repository.
+Instead, report it privately via **GitHub Private Vulnerability
+Reporting**: open the [Security tab](https://github.com/Sanjay7127/zentask/security/advisories/new)
+on this repository and submit a draft security advisory.
 
 Please include:
 

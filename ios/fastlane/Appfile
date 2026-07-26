@@ -7,6 +7,6 @@
 # needs them; nobody else can supply them for you.
 
 app_identifier("com.github.sanjay7127.zentask")
-# apple_id("you@example.com")
-# itc_team_id("")
-# team_id("")
+# apple_id(ENV["APPLE_ID"])
+# itc_team_id(ENV["ITC_TEAM_ID"])
+# team_id(ENV["APPLE_TEAM_ID"])
