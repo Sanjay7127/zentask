@@ -1,0 +1,1 @@
+Initial release: tasks, projects, AI planner, calendar, analytics, focus timer, habits, goals, achievements, optional cloud sync, and biometric app lock with local encryption.

@@ -1,0 +1,1 @@
+Tasks, projects, and an AI planner that works entirely on your device — private by default, cloud sync optional.

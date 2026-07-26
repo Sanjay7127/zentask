@@ -1,0 +1,21 @@
+ZenTask is a task and project manager that works entirely on your device — no account required, no data leaves your phone unless you choose to turn on cloud sync.
+
+TASKS & PROJECTS
+Rich tasks with priority, due dates, reminders, subtasks, tags, and custom labels. Organize them into projects and track completion at a glance. Pin your most important tasks, save your favorite filters, and set up recurring tasks for things you do every day, week, or month.
+
+AI PLANNER
+Describe a goal in plain language and get back a structured plan of tasks — powered by Claude, when you provide your own API key. Works entirely without one too; every AI feature degrades gracefully to a clear message rather than a broken screen.
+
+FOCUS & HABITS
+A built-in Pomodoro-style focus timer with session statistics, daily habit tracking with streaks, measurable goals with progress bars, and achievements that unlock as you build momentum.
+
+CALENDAR & ANALYTICS
+See task due dates, reminders, and events together in one calendar view. Track your completion rate, streaks, and productivity trends over time.
+
+PRIVACY & SECURITY, BY DEFAULT
+Your data stays on your device unless you explicitly connect a cloud account. Turn on biometric app lock and AES-256 encryption of your local data any time from Settings. Delete everything with one tap, whenever you want.
+
+OPTIONAL CLOUD SYNC
+Connect an account to sync your tasks and projects across devices — entirely optional, and the app is fully functional without it.
+
+No ads. No trackers. No account required to get started.

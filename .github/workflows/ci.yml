@@ -1,0 +1,74 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  analyze_and_test:
+    name: Analyze & test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - run: flutter pub get
+
+      # No config/cloud_config.json in CI (it's gitignored and holds
+      # real secrets) — every cloud-backed service already falls back
+      # to its Unavailable implementation without one, so analyze/test
+      # run the same way here as for a contributor who never set cloud
+      # credentials up locally.
+      - run: flutter analyze
+
+      - run: flutter test
+
+  build_android:
+    name: Build Android (debug, unsigned)
+    needs: analyze_and_test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - run: flutter pub get
+
+      # Debug + --flavor dev needs no signing config and no cloud
+      # secrets — this job exists to catch Android build regressions,
+      # not to produce a release artifact (see fastlane/ for that).
+      - run: flutter build apk --debug --flavor dev
+
+  build_ios:
+    name: Build iOS (debug, unsigned)
+    needs: analyze_and_test
+    runs-on: macos-latest
+    # Best-effort only: CocoaPods/Xcode toolchain drift on the hosted
+    # macOS runner is outside this app's control, so a flaky failure
+    # here shouldn't block merges the way analyze/test/Android do.
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - run: flutter pub get
+
+      - run: flutter build ios --debug --no-codesign

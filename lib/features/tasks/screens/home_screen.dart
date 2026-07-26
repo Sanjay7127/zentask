@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zentask/features/ai_planner/screens/ai_planner_screen.dart';
 import 'package:zentask/features/tasks/widgets/quick_add_bar.dart';
 import 'package:zentask/features/tasks/widgets/task_tile.dart';
 import 'package:zentask/providers/task_controller.dart';
@@ -47,6 +48,17 @@ class _HomeScreenState extends State<HomeScreen> {
               style: textTheme.headlineMedium?.copyWith(
                   fontSize: 35, fontWeight: FontWeight.bold)),
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.auto_awesome_outlined),
+            tooltip: 'AI Planner',
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const AIPlannerScreen()),
+              );
+            },
+          ),
+        ],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.only(left: 40),
                     child: Text('Tasks',
@@ -68,17 +80,19 @@ class _HomeScreenState extends State<HomeScreen> {
                             fontSize: 25, fontWeight: FontWeight.bold)),
                   ),
                   ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: tasks.length,
                     itemBuilder: (context, index) {
                       final task = tasks[index];
-                      return TaskTile(
-                        taskname: task.title,
-                        taskcomplete: task.isDone,
-                        onChanged: (value) => _controller.toggleTask(index),
-                        deletefunction: (context) =>
-                            _controller.deleteTask(index),
+                      return RepaintBoundary(
+                        child: TaskTile(
+                          taskname: task.title,
+                          taskcomplete: task.isDone,
+                          onChanged: (value) => _controller.toggleTask(index),
+                          deletefunction: (context) =>
+                              _controller.deleteTask(index),
+                        ),
                       );
                     },
                   ),

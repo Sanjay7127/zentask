@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:zentask/features/tasks/screens/home_screen.dart';
+import 'package:zentask/core/root_shell.dart';
 
-/// Branded launch screen shown briefly before handing off to [HomeScreen].
+/// Branded launch screen shown briefly before handing off to [RootShell]
+/// (the bottom-nav shell; Tasks — the original [HomeScreen] — is its
+/// first tab, Phase 7).
 ///
 /// The icon mark below is a code-drawn placeholder standing in for the
 /// generated app icon (a flowing check/"Z" mark on a teal gradient tile).
@@ -25,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
     _timer = Timer(const Duration(milliseconds: 1200), () {
       if (!mounted) return;
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => const HomeScreen()),
+        MaterialPageRoute(builder: (_) => const RootShell()),
       );
     });
   }

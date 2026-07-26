@@ -1,0 +1,11 @@
+# Fastlane Appfile (iOS) — Phase 12 skeleton, not yet wired to a real
+# App Store Connect listing.
+#
+# app_identifier should match the Xcode project's bundle identifier
+# (see DEVELOPER_GUIDE.md's "Before your first store submission"
+# section — this hasn't been finalized from Flutter's default yet).
+
+# app_identifier("com.example.zentask")
+# apple_id("you@example.com")
+# itc_team_id("")
+# team_id("")

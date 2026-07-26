@@ -44,6 +44,30 @@ android {
         versionName = flutterVersionName
     }
 
+    // Phase 12 build flavors: `dev` gets a distinct application id (so it
+    // can be installed side-by-side with a release build on the same
+    // device) and a distinct label; `prod` is the store-submission
+    // flavor and changes neither. Pair with
+    // `--dart-define-from-file=config/cloud_config.json` (which also
+    // carries the `ENVIRONMENT` dart-define — see `AppEnvironmentConfig`)
+    // for the Dart-level half of this split.
+    //
+    // Build with e.g.:
+    //   flutter build apk --flavor dev --dart-define-from-file=config/cloud_config.json
+    //   flutter build appbundle --flavor prod --dart-define-from-file=config/cloud_config.prod.json
+    flavorDimensions += "environment"
+    productFlavors {
+        dev {
+            dimension = "environment"
+            applicationIdSuffix = ".dev"
+            resValue "string", "app_name", "ZenTask Dev"
+        }
+        prod {
+            dimension = "environment"
+            resValue "string", "app_name", "ZenTask"
+        }
+    }
+
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.

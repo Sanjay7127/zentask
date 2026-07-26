@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!--
+	Apple's required Privacy Manifest (introduced 2024). ZenTask does not
+	track users across apps/websites and does not collect data linked to
+	their identity for any third party — every cloud feature (sync, AI
+	planner) is opt-in and local-only until the user supplies their own
+	credentials (see ARCHITECTURE.md's "Graceful degradation" section).
+
+	NSPrivacyAccessedAPITypes below covers the "required reason" API
+	categories this app's dependencies are known to touch (Hive/
+	path_provider for local storage, flutter_secure_storage/local_auth for
+	the app-lock key). Re-check this file against
+	https://developer.apple.com/support/third-party-SDK-requirements/ if a
+	new dependency is added — a plugin that touches a new required-reason
+	API without a declared entry here can get a build rejected at App
+	Store submission time.
+	-->
+	<key>NSPrivacyTracking</key>
+	<false/>
+	<key>NSPrivacyTrackingDomains</key>
+	<array/>
+	<key>NSPrivacyCollectedDataTypes</key>
+	<array/>
+	<key>NSPrivacyAccessedAPITypes</key>
+	<array>
+		<dict>
+			<key>NSPrivacyAccessedAPIType</key>
+			<string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
+			<key>NSPrivacyAccessedAPITypeReasons</key>
+			<array>
+				<string>C617.1</string>
+			</array>
+		</dict>
+		<dict>
+			<key>NSPrivacyAccessedAPIType</key>
+			<string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+			<key>NSPrivacyAccessedAPITypeReasons</key>
+			<array>
+				<string>CA92.1</string>
+			</array>
+		</dict>
+		<dict>
+			<key>NSPrivacyAccessedAPIType</key>
+			<string>NSPrivacyAccessedAPICategoryDiskSpace</string>
+			<key>NSPrivacyAccessedAPITypeReasons</key>
+			<array>
+				<string>E174.1</string>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>

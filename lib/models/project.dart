@@ -1,3 +1,4 @@
+import 'package:zentask/models/task.dart';
 import 'package:zentask/utils/id_generator.dart';
 
 enum ProjectCategory { work, personal, hackathon, study, other }
@@ -16,6 +17,11 @@ enum ProjectCategory { work, personal, hackathon, study, other }
 /// `Color`/`IconData` so this model has no Flutter dependency, matching
 /// the existing `Task` model — the UI layer maps `iconKey` to an actual
 /// icon and `colorValue` to a `Color`.
+///
+/// `priority` reuses [TaskPriority] (Phase 7) rather than a duplicate
+/// project-specific enum — it's the same real-world concept (how
+/// urgently this thing deserves attention), just at the project level
+/// instead of the task level.
 class Project {
   final String id;
   final String title;
@@ -23,6 +29,7 @@ class Project {
   final int colorValue;
   final String iconKey;
   final ProjectCategory category;
+  final TaskPriority priority;
   final bool isArchived;
   final bool isFavorite;
   final String? linkedEventId;
@@ -36,6 +43,7 @@ class Project {
     this.colorValue = 0xFF01D1AF,
     this.iconKey = 'folder',
     this.category = ProjectCategory.other,
+    this.priority = TaskPriority.medium,
     this.isArchived = false,
     this.isFavorite = false,
     this.linkedEventId,
@@ -49,6 +57,7 @@ class Project {
     int colorValue = 0xFF01D1AF,
     String iconKey = 'folder',
     ProjectCategory category = ProjectCategory.other,
+    TaskPriority priority = TaskPriority.medium,
     String? linkedEventId,
   }) {
     final now = DateTime.now();
@@ -59,6 +68,7 @@ class Project {
       colorValue: colorValue,
       iconKey: iconKey,
       category: category,
+      priority: priority,
       linkedEventId: linkedEventId,
       createdAt: now,
       updatedAt: now,
@@ -71,6 +81,7 @@ class Project {
     int? colorValue,
     String? iconKey,
     ProjectCategory? category,
+    TaskPriority? priority,
     bool? isArchived,
     bool? isFavorite,
     String? linkedEventId,
@@ -82,6 +93,7 @@ class Project {
         colorValue: colorValue ?? this.colorValue,
         iconKey: iconKey ?? this.iconKey,
         category: category ?? this.category,
+        priority: priority ?? this.priority,
         isArchived: isArchived ?? this.isArchived,
         isFavorite: isFavorite ?? this.isFavorite,
         linkedEventId: linkedEventId ?? this.linkedEventId,
@@ -96,6 +108,7 @@ class Project {
         'colorValue': colorValue,
         'iconKey': iconKey,
         'category': category.name,
+        'priority': priority.name,
         'isArchived': isArchived,
         'isFavorite': isFavorite,
         'linkedEventId': linkedEventId,
@@ -112,6 +125,10 @@ class Project {
         category: ProjectCategory.values.firstWhere(
           (c) => c.name == map['category'],
           orElse: () => ProjectCategory.other,
+        ),
+        priority: TaskPriority.values.firstWhere(
+          (p) => p.name == map['priority'],
+          orElse: () => TaskPriority.medium,
         ),
         isArchived: map['isArchived'] as bool? ?? false,
         isFavorite: map['isFavorite'] as bool? ?? false,

@@ -1,0 +1,28 @@
+# Fastlane lanes (iOS) — Phase 12 skeleton.
+#
+# Not runnable as-is: needs a real Apple Developer Program membership,
+# a configured signing identity/provisioning profile (`match` or
+# manual), and an App Store Connect app record — all store-submission
+# prerequisites outside this phase's scope. See DEVELOPER_GUIDE.md.
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Build an unsigned release .ipa (smoke-test the build only, not for distribution)"
+  lane :build_unsigned do
+    Dir.chdir("../..") do
+      sh("flutter", "build", "ios", "--release", "--no-codesign")
+    end
+  end
+
+  desc "Build, sign, and upload to TestFlight"
+  lane :beta do
+    Dir.chdir("../..") do
+      sh("flutter", "build", "ipa", "--release")
+    end
+    upload_to_testflight(
+      ipa: "../../build/ios/ipa/zentask.ipa",
+      skip_waiting_for_build_processing: true,
+    )
+  end
+end

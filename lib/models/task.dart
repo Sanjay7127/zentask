@@ -1,7 +1,26 @@
 import 'package:zentask/utils/id_generator.dart';
 
-/// Priority level for a [Task].
+/// Priority level for a [Task] (and, since Phase 7, a [Project]).
 enum TaskPriority { low, medium, high, urgent }
+
+/// Shared human-readable label for [TaskPriority] — pure Dart (no
+/// Flutter dependency, matching this file's models), so both UI code
+/// (`project_visuals.dart`) and service-layer code (`ai_planner.dart`)
+/// can use the same wording without duplicating the switch statement.
+extension TaskPriorityLabel on TaskPriority {
+  String get label {
+    switch (this) {
+      case TaskPriority.low:
+        return 'Low';
+      case TaskPriority.medium:
+        return 'Medium';
+      case TaskPriority.high:
+        return 'High';
+      case TaskPriority.urgent:
+        return 'Urgent';
+    }
+  }
+}
 
 /// Workflow state for a [Task], distinct from the legacy [Task.isDone]
 /// flag.
@@ -107,6 +126,17 @@ class Task {
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
+  /// Pinned tasks surface in the Pinned Tasks section regardless of
+  /// project/priority (Phase 12). Plain `bool`, same reasoning as every
+  /// other flag on this model — one field, one source of truth.
+  final bool isPinned;
+
+  /// [Label] ids attached to this task (Phase 12) — a task can carry
+  /// several. Distinct from [tags] (free-form strings with no color or
+  /// management UI of their own): labels are a curated, reusable set
+  /// managed on their own screen.
+  final List<String> labelIds;
+
   const Task({
     required this.title,
     required this.isDone,
@@ -123,6 +153,8 @@ class Task {
     this.order = 0,
     this.createdAt,
     this.updatedAt,
+    this.isPinned = false,
+    this.labelIds = const [],
   }) : status = status ?? (isDone ? TaskStatus.done : TaskStatus.todo);
 
   /// Read-only alias for [isDone] using Phase 3's naming. There is
@@ -145,6 +177,8 @@ class Task {
     List<Subtask> subtasks = const [],
     Recurrence? recurrence,
     int order = 0,
+    bool isPinned = false,
+    List<String> labelIds = const [],
   }) {
     final now = DateTime.now();
     return Task(
@@ -163,6 +197,8 @@ class Task {
       order: order,
       createdAt: now,
       updatedAt: now,
+      isPinned: isPinned,
+      labelIds: labelIds,
     );
   }
 
@@ -192,6 +228,8 @@ class Task {
         'order': order,
         'createdAt': createdAt?.toIso8601String(),
         'updatedAt': updatedAt?.toIso8601String(),
+        'isPinned': isPinned,
+        'labelIds': labelIds,
       };
 
   factory Task.fromMap(Map<dynamic, dynamic> map) {
@@ -231,9 +269,17 @@ class Task {
       updatedAt: map['updatedAt'] != null
           ? DateTime.parse(map['updatedAt'] as String)
           : null,
+      isPinned: map['isPinned'] as bool? ?? false,
+      labelIds: (map['labelIds'] as List?)?.cast<String>() ?? const [],
     );
   }
 
+  /// Standard `copyWith` null-coalescing convention: passing `null` for
+  /// any parameter means "leave this field unchanged," not "set it to
+  /// null." There is currently no field here that ever needs to be
+  /// explicitly cleared via `copyWith` — [projectId] is the one
+  /// exception, and [unassignFromProject] exists specifically because
+  /// `copyWith(projectId: null)` cannot express "clear it."
   Task copyWith({
     String? title,
     bool? isDone,
@@ -247,6 +293,8 @@ class Task {
     List<Subtask>? subtasks,
     Recurrence? recurrence,
     int? order,
+    bool? isPinned,
+    List<String>? labelIds,
   }) {
     final effectiveStatus = status ??
         (isDone != null
@@ -270,6 +318,80 @@ class Task {
       order: order ?? this.order,
       createdAt: createdAt,
       updatedAt: DateTime.now(),
+      isPinned: isPinned ?? this.isPinned,
+      labelIds: labelIds ?? this.labelIds,
     );
   }
+
+  /// Returns a copy with [projectId] cleared (set to `null`).
+  ///
+  /// Exists because `copyWith(projectId: null)` can't do this — see the
+  /// doc comment on [copyWith]. Used when a project is deleted: its
+  /// tasks are unassigned rather than deleted, so no task data is lost
+  /// (Phase 7).
+  Task unassignFromProject() => Task(
+        id: id,
+        title: title,
+        isDone: isDone,
+        status: status,
+        projectId: null,
+        description: description,
+        priority: priority,
+        dueDate: dueDate,
+        reminder: reminder,
+        tags: tags,
+        subtasks: subtasks,
+        recurrence: recurrence,
+        order: order,
+        createdAt: createdAt,
+        updatedAt: DateTime.now(),
+        isPinned: isPinned,
+        labelIds: labelIds,
+      );
+
+  /// Returns a copy with [dueDate] cleared. Same reasoning as
+  /// [unassignFromProject] — `copyWith(dueDate: null)` can't do this
+  /// (Phase 7).
+  Task withoutDueDate() => Task(
+        id: id,
+        title: title,
+        isDone: isDone,
+        status: status,
+        projectId: projectId,
+        description: description,
+        priority: priority,
+        dueDate: null,
+        reminder: reminder,
+        tags: tags,
+        subtasks: subtasks,
+        recurrence: recurrence,
+        order: order,
+        createdAt: createdAt,
+        updatedAt: DateTime.now(),
+        isPinned: isPinned,
+        labelIds: labelIds,
+      );
+
+  /// Returns a copy with [reminder] cleared. Same reasoning as
+  /// [unassignFromProject] — `copyWith(reminder: null)` can't do this
+  /// (Phase 7).
+  Task withoutReminder() => Task(
+        id: id,
+        title: title,
+        isDone: isDone,
+        status: status,
+        projectId: projectId,
+        description: description,
+        priority: priority,
+        dueDate: dueDate,
+        reminder: null,
+        tags: tags,
+        subtasks: subtasks,
+        recurrence: recurrence,
+        order: order,
+        createdAt: createdAt,
+        updatedAt: DateTime.now(),
+        isPinned: isPinned,
+        labelIds: labelIds,
+      );
 }

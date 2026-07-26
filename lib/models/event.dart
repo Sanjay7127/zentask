@@ -8,6 +8,10 @@ enum EventType {
   meetup,
   internship,
   certification,
+
+  /// Catch-all for events that don't fit the categories above — notably
+  /// ICS imports (Phase 11), which have no equivalent concept to map to.
+  other,
 }
 
 /// A Competition, Hackathon, Event, or similar opportunity that a

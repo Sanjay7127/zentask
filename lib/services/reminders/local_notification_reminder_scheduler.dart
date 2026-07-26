@@ -113,6 +113,34 @@ class LocalNotificationReminderScheduler implements ReminderScheduler {
     await _plugin.cancelAll();
   }
 
+  @override
+  Future<bool?> areNotificationsEnabled() async {
+    final androidImpl = _plugin.resolvePlatformSpecificImplementation<
+        AndroidFlutterLocalNotificationsPlugin>();
+    if (androidImpl != null) {
+      return androidImpl.areNotificationsEnabled();
+    }
+
+    final iosImpl = _plugin.resolvePlatformSpecificImplementation<
+        IOSFlutterLocalNotificationsPlugin>();
+    if (iosImpl != null) {
+      final options = await iosImpl.checkPermissions();
+      return options?.isEnabled;
+    }
+
+    final macImpl = _plugin.resolvePlatformSpecificImplementation<
+        MacOSFlutterLocalNotificationsPlugin>();
+    if (macImpl != null) {
+      final options = await macImpl.checkPermissions();
+      return options?.isEnabled;
+    }
+
+    // No platform-specific implementation available (e.g. web, Linux,
+    // Windows) — this platform isn't supported by the plugin, so there's
+    // no meaningful status to report.
+    return null;
+  }
+
   /// `flutter_local_notifications` needs an `int` id; our task ids are
   /// strings, so this derives one via `hashCode`. Collisions are
   /// possible in theory (two ids hashing to the same int) but

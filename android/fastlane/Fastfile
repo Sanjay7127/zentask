@@ -1,0 +1,38 @@
+# Fastlane lanes (Android) — Phase 12 skeleton.
+#
+# Not runnable as-is: `upload_to_play_store` needs a real Play Console
+# service-account key (see Appfile) and a signed app bundle (this repo
+# currently signs release builds with the debug key — see the TODO in
+# android/app/build.gradle). Both are store-submission prerequisites
+# outside this phase's scope; see DEVELOPER_GUIDE.md.
+
+default_platform(:android)
+
+platform :android do
+  desc "Build a signed release App Bundle for the prod flavor"
+  lane :build_release do
+    Dir.chdir("../..") do
+      sh("flutter", "build", "appbundle", "--release", "--flavor", "prod")
+    end
+  end
+
+  desc "Upload the prod App Bundle to the Play Store's internal testing track"
+  lane :beta do
+    build_release
+    upload_to_play_store(
+      track: "internal",
+      aab: "../../build/app/outputs/bundle/prodRelease/app-prod-release.aab",
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+    )
+  end
+
+  desc "Promote the current internal-track build to production"
+  lane :release do
+    upload_to_play_store(
+      track: "internal",
+      track_promote_to: "production",
+    )
+  end
+end

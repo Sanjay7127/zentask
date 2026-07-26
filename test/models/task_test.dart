@@ -113,5 +113,36 @@ void main() {
       expect(done.isDone, true);
       expect(done.completed, true);
     });
+
+    test('copyWith(projectId: null) leaves projectId unchanged (documented '
+        'null-coalescing convention)', () {
+      final task = Task.create(title: 'A task', projectId: 'p1');
+      final copy = task.copyWith(projectId: null);
+      expect(copy.projectId, 'p1');
+    });
+
+    test('unassignFromProject clears projectId (Phase 7)', () {
+      final task = Task.create(title: 'A task', projectId: 'p1');
+      final unassigned = task.unassignFromProject();
+
+      expect(unassigned.projectId, isNull);
+      expect(unassigned.id, task.id);
+      expect(unassigned.title, task.title);
+    });
+
+    test('withoutDueDate clears dueDate (Phase 7)', () {
+      final task = Task.create(title: 'A task', dueDate: DateTime(2026, 1, 1));
+      final cleared = task.withoutDueDate();
+      expect(cleared.dueDate, isNull);
+      expect(cleared.id, task.id);
+    });
+
+    test('withoutReminder clears reminder (Phase 7)', () {
+      final task =
+          Task.create(title: 'A task', reminder: DateTime(2026, 1, 1));
+      final cleared = task.withoutReminder();
+      expect(cleared.reminder, isNull);
+      expect(cleared.id, task.id);
+    });
   });
 }

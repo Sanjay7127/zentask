@@ -21,4 +21,9 @@ abstract class ReminderScheduler {
   Future<void> cancelReminder(String id);
 
   Future<void> cancelAll();
+
+  /// Whether the OS currently allows this app to show notifications.
+  /// Returns `null` if the current platform can't report a status (e.g.
+  /// web, where notifications aren't supported at all).
+  Future<bool?> areNotificationsEnabled();
 }

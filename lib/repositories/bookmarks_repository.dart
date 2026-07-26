@@ -18,6 +18,15 @@ class BookmarksRepository {
     return _box.get('$entityType:$entityId') == true;
   }
 
+  /// Every bookmarked `'<entityType>:<entityId>'` key currently stored —
+  /// used by [CloudSyncEngine] to push the full bookmark set (Phase 11).
+  Set<String> getAllKeys() => _box.keys.cast<String>().toSet();
+
+  /// Marks [key] (a `'<entityType>:<entityId>'` pair) as bookmarked
+  /// without needing to split it back into its two parts first — used
+  /// when pulling bookmark keys down from the cloud (Phase 11).
+  Future<void> markKeyBookmarked(String key) => _box.put(key, true);
+
   Future<void> setBookmarked(
     String entityType,
     String entityId,

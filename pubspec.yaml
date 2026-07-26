@@ -17,6 +17,11 @@ dependencies:
   flutter_local_notifications: ^18.0.1
   timezone: ^0.9.4
   flutter_timezone: ^3.0.1
+  fl_chart: ^0.69.0
+  supabase_flutter: ^2.16.0
+  http: ^1.6.0
+  local_auth: ^3.0.2
+  flutter_secure_storage: ^10.3.1
 
 dev_dependencies:
   flutter_test:
@@ -25,9 +30,32 @@ dev_dependencies:
   build_runner: ^2.4.10
   flutter_lints: ^3.0.0
   flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.4.3
 flutter:
   uses-material-design: true
-flutter_icons:
+
+# App icon generation (`dart run flutter_launcher_icons`). image_path
+# still points at the pre-rebrand "ToDo.png" placeholder asset (same
+# leftover as the "assests" typo'd folder name) — swap in a real
+# ZenTask-branded 1024x1024 source image before a store submission; see
+# DEVELOPER_GUIDE.md.
+flutter_launcher_icons:
   android: true
   ios: true
+  remove_alpha_ios: true
   image_path: "assests/ToDo.png"
+
+# Native splash screen (`dart run flutter_native_splash:create`), shown
+# before the Flutter engine loads — distinct from `SplashScreen`
+# (lib/core/splash_screen.dart), the in-Flutter branded screen shown
+# briefly *after* engine load. Uses the app's teal brand seed color
+# (AppTheme.seedColor) as the background; same placeholder-image caveat
+# as flutter_launcher_icons above.
+flutter_native_splash:
+  color: "#01D1AF"
+  color_dark: "#121212"
+  image: "assests/ToDo.png"
+  android_12:
+    color: "#01D1AF"
+    color_dark: "#121212"
+    image: "assests/ToDo.png"

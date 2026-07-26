@@ -10,16 +10,18 @@
 .svn/
 migrate_working_dir/
 
+# Local AI-assistant tooling state — not part of the project
+.claude/
+
 # IntelliJ related
 *.iml
 *.ipr
 *.iws
 .idea/
 
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
+# VS Code — local launch configs/tasks/extensions recommendations aren't
+# guaranteed to be the same across every contributor's machine.
+.vscode/
 
 # Flutter/Dart/Pub related
 **/doc/api/
@@ -41,3 +43,15 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Test coverage output (flutter test --coverage)
+coverage/
+*.lcov
+
+# Cloud credentials — real Supabase/AI keys live only in
+# config/cloud_config.json, never committed. config/cloud_config.example.json
+# (the checked-in template) has empty placeholders and is safe to commit.
+/config/cloud_config.json
+*.env
+.env
+.env.*

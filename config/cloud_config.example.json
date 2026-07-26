@@ -1,0 +1,6 @@
+{
+  "ENVIRONMENT": "dev",
+  "SUPABASE_URL": "",
+  "SUPABASE_ANON_KEY": "",
+  "ANTHROPIC_API_KEY": ""
+}
